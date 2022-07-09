@@ -50,4 +50,3 @@ if __name__ == "__main__":
     process_data()
     write_json()
     get_messages()
-    # print(sorted(outputlist))
