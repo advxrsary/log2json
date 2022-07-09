@@ -18,12 +18,12 @@ for line in file.readlines():
     data.append(structure)
 
 def write_json():
+    jfile.write('[\n')
     for entry in data:
         jfile.writelines(json.dumps(entry, indent=4))
         jfile.write(",\n")
+    jfile.write(']')
 
 if __name__ == "__main__":
-    jfile.write('[\n')
     write_json()
-    jfile.write(']')
     print(sorted(newlist))
