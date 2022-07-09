@@ -7,29 +7,18 @@ jfile = open(json_file, "w")
 data = []
 order = ["time", "sessionid", "message"]
 message_list = []
+new_message_list = {}
 
 def process_data():
     for line in file.readlines():
-        details = line.split("\t") 
+        details = line.split("\t")
         details = [x.strip() for x in details]
-        message_list.append(details[2])
-        
-                
-        structure = {key:value for key, value in zip(order, details)}
+        message_details = details[2].split("=")
+        details[2] = details[2].split("=")[1]
+        structure = {key: value for key, value in zip(
+            ["time", "sessionid", message_details[0]], details)}
         data.append(structure)
-        
-def get_messages():
-    for item in message_list:
-        if 'client=' in item:
-            client_list = {'client': (item.replace('client=', ''))}
-        if 'from=' in item:
-            message_from = {'from': (item.replace('from=', ''))}
-        if 'to=' in item:
-            message_to = {'to': (item.replace('to=', ''))}
-        if 'message-id=' in item:
-            message_id = {'messageid': (item.replace('message-id=', ''))}
-        if 'status=' in item:
-            status = {'status': (item.replace('status=', ''))}
+    print(data)
         
 def create_cell():
     pass
