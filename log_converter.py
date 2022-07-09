@@ -1,5 +1,4 @@
 import json
-import re
 
 file_name = 'email.txt'
 json_file = 'email.json'
@@ -8,9 +7,6 @@ jfile = open(json_file, "w")
 data = []
 order = ["time", "sessionid", "message"]
 message_list = []
-
-
-
 
 def process_data():
     for line in file.readlines():
@@ -34,8 +30,7 @@ def get_messages():
             message_id = {'messageid': (item.replace('message-id=', ''))}
         if 'status=' in item:
             status = {'status': (item.replace('status=', ''))}
-            
-
+        
 def create_cell():
     pass
 
