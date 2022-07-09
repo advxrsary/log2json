@@ -1,6 +1,4 @@
-# "client", "messageid", "address", "status"
 import json
-
 
 file_name = 'email.txt'
 json_file = 'email.json'
@@ -10,12 +8,13 @@ data = []
 order = ["time", "sessionid", "message"]
 newlist = []
 
-for line in file.readlines():
-    details = line.split("\t")
-    details = [x.strip() for x in details]
-    newlist.append(details[2].split('=')[1])
-    structure = {key:value for key, value in zip(order, details)}
-    data.append(structure)
+def create_json_data():
+    for line in file.readlines():
+        details = line.split("\t") 
+        details = [x.strip() for x in details]
+        newlist.append(details[2].split('=')[1])
+        structure = {key:value for key, value in zip(order, details)}
+        data.append(structure)
 
 def write_json():
     jfile.write('[\n')
@@ -25,5 +24,6 @@ def write_json():
     jfile.write(']')
 
 if __name__ == "__main__":
+    create_json_data()
     write_json()
     print(sorted(newlist))
