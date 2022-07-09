@@ -26,14 +26,10 @@ def process_data():
         
 def create_cell():
     for dict1, dict2 in seq_pairs(process_data()):
-        # if first_dict['sessionid'] == second_dict['sessionid']:
-        #     second_dict.pop('time')
-        #     final_dict = first_dict | second_dict
-        #     print(final_dict)
-        dict2_sorted = {i: dict2[i] for i in dict1.keys()}
-        keys = dict1.keys()
-        values = zip(dict1.values(), dict2_sorted.values())
-        final_dict = dict(zip(keys, values))
+        if dict1['sessionid'] == dict2['sessionid']:
+            dict2.pop('time')
+            final_dict = dict1 | dict2
+            print(final_dict)
 
 def write_json():
     jfile.write('[\n')
