@@ -1,2 +1,3 @@
-email.json
-email.txt
+*.json
+*.log
+*.txt
