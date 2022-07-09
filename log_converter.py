@@ -1,5 +1,5 @@
 import json
-from itertools import islice
+from itertools import islice, groupby
 from datetime import datetime
 
 time_val, session_val, start_val, dur_val, from_val, to_val, status_val, client_val, messageid_val = "", "", "", "", "", "", "", "", ""
@@ -8,9 +8,9 @@ json_file = 'output.json'
 file = open(file_name, "r")
 jfile = open(json_file, "w")
 data, newdata, message_list, sidlist = [], [], [], []
-new_message_list, final_dict = {}, {}
+new_message_list, eventdict = {}, {}
 time = {"start": start_val, "duration": dur_val}
-address = {"from", "to"}
+address = {"from": from_val, "to": to_val}
 message_outs = ["status", "client", "message-id"]
 date_format = '%Y-%m-%d %H:%M:%S.%f'
 
@@ -18,10 +18,6 @@ date_format = '%Y-%m-%d %H:%M:%S.%f'
 def seq_pairs(li):
     return zip(li, islice(li, 1, None))
 
-def find_sid(dictionary2look):
-    for dict in dictionary2look:
-        sidlist.append(dict['sessionid'])
-    return(list(dict.fromkeys(sidlist)))
 
 def process_data():
     for line in file.readlines():
@@ -35,28 +31,51 @@ def process_data():
         data.append(structure)
     return data
 
+
 def create_event():
-    event = { "time":time, 
-        "sessionid":session_val, 
-        "client":client_val, 
-        "messageid":messageid_val, 
-        "address":address, 
-        "status":status_val }
-    
+    event = {"time": time,
+             "sessionid": session_val,
+             "client": client_val,
+             "messageid": messageid_val,
+             "address": address,
+             "status": status_val}
+
     etime = event['time']
     eadrs = event['address']
     datalist = process_data()
+    datalist = sorted(datalist, key=key_func)
     divided_list = seq_pairs(datalist)
-    found_sids = find_sid(datalist)
-    iter_sids = iter(found_sids)
-    
+
     for list1, list2 in divided_list:
-        nextsid = iter_sids.__next__()
-        start = datetime.strptime(list1['start'].replace("T", ' '), date_format)
+        start = datetime.strptime(
+            list1['start'].replace("T", ' '), date_format)
         end = datetime.strptime(list2['start'].replace("T", ' '), date_format)
-        if list1['sessionid'] == nextsid:
-            print(list1['sessionid'])
-        
+
+    for key, value in groupby(datalist, key_func):
+        sidlist.append(list(value))
+    for item in sidlist:
+        for i in item:
+            event['sessionid'] = i['sessionid']
+            etime['start'] = str(start)
+            etime['duration'] = str(end - start)
+            if 'client' in i:
+                event['client'] = i['client']
+            if 'status' in i:
+                event['status'] = i['status']
+            if 'from' in i:
+                eadrs['from'] = i['from']
+            if 'to' in i:
+                eadrs['to'] = i['to']
+            if 'message-id' in i:
+                event['messageid'] = i['message-id']
+        return(event)
+    # print(dict(item[0]))
+    # print(i)
+
+
+def key_func(k):
+    return k['sessionid']
+
 
 def write_json():
     jfile.write('[\n')
@@ -65,6 +84,7 @@ def write_json():
         jfile.write(",\n")
     jfile.write(']')
     print(entry)
+
 
 if __name__ == "__main__":
     create_event()
