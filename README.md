@@ -47,3 +47,6 @@ python3 Log2JSON.py "log-file.log" "output-file.json"
   }
 ]
 ```
+
+
+..o0O Made by advxrs4ry O0o..
