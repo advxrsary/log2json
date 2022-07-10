@@ -18,7 +18,7 @@ python3 Log2JSON.py 'log-file' 'output-file'
 ```
 4. Comma fix
 ```bash
-python3 fix_comma [file-to-fix]
+python3 fix_comma.py [file-to-fix]
 ```
 
 ## Known Issues
