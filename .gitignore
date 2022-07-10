@@ -2,4 +2,3 @@
 *.log
 *.txt
 
-!Log2JSON.py
