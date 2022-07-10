@@ -8,7 +8,6 @@ data, sidlist = [], []
 time = {"start": start_val, "duration": dur_val}
 address = {"from": from_val, "to": to_val}
 date_format = '%Y-%m-%d %H:%M:%S.%f'
-#################################################
 
 # Exceptions for files input
 try:
