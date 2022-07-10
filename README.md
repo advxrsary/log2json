@@ -22,7 +22,7 @@ python3 fix_comma.py [file-to-fix]
 ```
 
 ## Known Issues
-+ Comma at the end of the .json
++ Comma at the end of .json
 + Duration is not calculated yet
 
 ## Before
