@@ -3,10 +3,6 @@ from itertools import islice, groupby
 from datetime import datetime
 
 # Variables declaration 
-file_name = sys.argv[1]
-json_file = sys.argv[2]
-file = open(file_name, "r")
-jwfile = open(json_file, "w")
 time_val, session_val, start_val, dur_val, from_val, to_val, status_val, client_val, messageid_val = "", "", "", "", "", "", "", "", ""
 data, sidlist = [], []
 time = {"start": start_val, "duration": dur_val}
@@ -25,6 +21,7 @@ def key_func(k):
 # zips all values and creates list of dictionaries.
 # returns the list
 def process_data():
+    file = open(file_name, "r")
     for line in file.readlines():
         details = line.split("\t")
         details = [x.strip() for x in details]
@@ -44,7 +41,7 @@ def create_event():
             "messageid": messageid_val,
             "address": address,
             "status": status_val}
-
+    jwfile = open(json_file, "w")
     etime = event['time']
     eadrs = event['address']
     datalist = process_data()
@@ -79,6 +76,16 @@ def create_event():
 
 # Main func
 if __name__ == "__main__":
+    try:
+        file_name = sys.argv[1]
+    except IndexError:
+        print("You did not specify log file")
+        sys.exit(1)
+    try:
+        json_file = sys.argv[2]
+    except IndexError:
+        print("You did not specify output file")
+        sys.exit(1)
     create_event()
     
 
