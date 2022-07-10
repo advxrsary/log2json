@@ -13,7 +13,9 @@ python3 Log2JSON.py "log-file.log" "output-file.json"
 ```
 3. At the moment you need to manually remove comma at the last line of output file
 ```bash
-},] --> }]
+},
+    "status": "sent"
+},] ----> }]
 ```
 
 
