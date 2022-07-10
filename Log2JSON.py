@@ -66,7 +66,6 @@ def create_event():
         jwfile.write(",")
     jwfile.write("]")
 
-
 if __name__ == "__main__":
     create_event()
 
