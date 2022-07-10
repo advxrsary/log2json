@@ -1,5 +1,11 @@
-*.json
-*.log
-*.txt
-__pycache__
+# Ignore all:
+*
+
+# Do not ignore:
 !requirements.txt
+!log2json.py
+!LICENSE
+!fix_comma.py
+!.gitignore
+!README.md
+
