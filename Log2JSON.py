@@ -1,6 +1,8 @@
 import json, sys
 from itertools import islice, groupby
 from datetime import datetime
+from termcolor import colored
+
 
 # Global variables declaration 
 time_val, session_val, start_val, dur_val, from_val, to_val, status_val, client_val, messageid_val = "", "", "", "", "", "", "", "", ""
@@ -13,12 +15,13 @@ date_format = '%Y-%m-%d %H:%M:%S.%f'
 try:
     file_name = sys.argv[1]
 except IndexError:
-    print("You did not specify log file")
+    print(colored('\n[#]', 'red'), colored("Specify log file!"))
+    print(colored('[#]', 'red'), colored("Specify output file!"))
     sys.exit(1)
 try:
     json_file = sys.argv[2]
 except IndexError:
-    print("You did not specify output file")
+    print(colored('\n[#]', 'red'), colored("Specify output file!"))
     sys.exit(1)
 
 # Sort by sessionid key
@@ -35,6 +38,7 @@ def seq_pairs(li):
 # zips all values and creates list of dictionaries.
 # returns the list
 def process_data():
+    print(colored('\n[*]', 'yellow'), "Processing data...")
     file = open(file_name, "r")
     for line in file.readlines():
         details = line.split("\t")
@@ -60,6 +64,7 @@ def create_event():
     eadrs = event['address']
     datalist = process_data()
     datalist = sorted(datalist, key=key_func)
+    print(colored('[*]', 'yellow'), "Creating event...")
 
     # Sorts and groups the datalist by session id
     for key, value in groupby(datalist, key_func):
@@ -67,23 +72,22 @@ def create_event():
 
     # Transforms processed data into serializable format
     # and writes it to .json file
-    
-    
     jwfile.write("[")
     for item in sidlist:
         jwfile.write('\n')
-        # divided_list = seq_pairs(item)
-        # for list1, list2 in divided_list:
         #     start = datetime.strptime(list1['start'].replace("T", ' '), date_format)
         #     end = datetime.strptime(
         #         list2['start'].replace("T", ' '), date_format)
         for i in item:
             event['sessionid'] = i['sessionid']
             etime['start'] = i['start']
+            start = datetime.strptime(
+                i['start'].replace("T", ' '), date_format)
             if 'client' in i:
                 event['client'] = i['client']
             if 'status' in i:
                 event['status'] = i['status']
+                etime['duration'] = i['start']
             if 'from' in i:
                 eadrs['from'] = i['from']
             if 'to' in i:
@@ -96,6 +100,7 @@ def create_event():
 # Main func
 if __name__ == "__main__":
     create_event()
-    
+    print(colored('[+]', 'green'), "Done!")
+    print(colored('[+]', 'green'), f"Results: {json_file}")
 
 
