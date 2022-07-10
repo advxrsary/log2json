@@ -18,6 +18,9 @@ python3 Log2JSON.py "log-file.log" "output-file.json"
 },] ----> }]
 ```
 
+## Known Issues
++ Comma at the end of the .json
++ Duration is not calculated yet
 
 ## Before
 ```log
