@@ -4,16 +4,13 @@ Converts a log to json file:
 ## How to use
 
 1. Rename your log file to email.txt OR change the value of file_name variable
-2. Move your log file to the Log2JSON directory
-3. Run python script
-4. Output file will be named 'output.json'
-5. At the moment you need to manually remove comma at the last line of the file
+2. Run python script with filenames as parameters
+3. At the moment you need to manually remove comma at the last line of the file
 
 ```bash
 git clone https://github.com/advxrsary/Log2JSON
 cd Log2JSON
-mv /path/to/the/file/ .
-python3 log_converter.py
+python3 log_converter.py "log-file.log" "outputfile.json"
 ```
 
 
