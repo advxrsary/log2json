@@ -1,6 +1,5 @@
 import json
 from itertools import islice, groupby
-from jsoncomment import JsonComment
 from datetime import datetime
 
 time_val, session_val, start_val, dur_val, from_val, to_val, status_val, client_val, messageid_val = "", "", "", "", "", "", "", "", ""
