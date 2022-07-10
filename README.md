@@ -1,5 +1,5 @@
 # log2json
-Converts a log of format `[ DATE | SESSION-ID | MESSAGE ]` to a json file:
+Converts a log of format [ DATE | SESSION-ID | MESSAGE ] to a json file:
 
 ## How to use
 
