@@ -3,6 +3,10 @@ from itertools import islice, groupby
 from datetime import datetime
 
 # Variables declaration 
+file_name = sys.argv[1]
+json_file = sys.argv[2]
+file = open(file_name, "r")
+jwfile = open(json_file, "w")
 time_val, session_val, start_val, dur_val, from_val, to_val, status_val, client_val, messageid_val = "", "", "", "", "", "", "", "", ""
 data, sidlist = [], []
 time = {"start": start_val, "duration": dur_val}
@@ -10,20 +14,6 @@ address = {"from": from_val, "to": to_val}
 date_format = '%Y-%m-%d %H:%M:%S.%f'
 #################################################
 
-# Exception for unspecified files
-def throw_unspecified_files():
-    try:
-        file_name = sys.argv[1]
-        file = open(file_name, "r")
-    except IndexError:
-        print("You did not specify log file")
-        sys.exit(1)
-    try:
-        json_file = sys.argv[2]
-        jwfile = open(json_file, "w")
-    except IndexError:
-        print("You did not specify output file")
-        sys.exit(1)
 # Sort by sessionid key
 def key_func(k):
     return k['sessionid']
@@ -72,17 +62,16 @@ def create_event():
         jwfile.write('\n')
         for i in item:
             event['sessionid'] = i['sessionid']
-            match i:
-                case 'client':
-                    event['client'] = i['client']
-                case 'status':
-                    event['status'] = i['status']
-                case 'from':
-                    eadrs['from'] = i['from']
-                case 'to':
-                    eadrs['to'] = i['to']
-                case 'message-id':
-                    event['messageid'] = i['message-id']
+            if 'client' in i:
+                event['client'] = i['client']
+            if 'status' in i:
+                event['status'] = i['status']
+            if 'from' in i:
+                eadrs['from'] = i['from']
+            if 'to' in i:
+                eadrs['to'] = i['to']
+            if 'message-id' in i:
+                event['messageid'] = i['message-id']
 
         jwfile.write(json.dumps(event, indent=4))
         jwfile.write(",")
@@ -90,7 +79,7 @@ def create_event():
 
 # Main func
 if __name__ == "__main__":
-    throw_unspecified_files()
     create_event()
+    
 
 
