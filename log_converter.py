@@ -1,18 +1,16 @@
-import json
+import json, sys
 from itertools import islice, groupby
 from datetime import datetime
 
 time_val, session_val, start_val, dur_val, from_val, to_val, status_val, client_val, messageid_val = "", "", "", "", "", "", "", "", ""
-file_name = 'email.txt'
-json_file = 'output.json'
+file_name = sys.argv[1]
+json_file = sys.argv[2]
 file = open(file_name, "r")
-jrfile = open(json_file, "r")
 jwfile = open(json_file, "w")
 data, sidlist = [], []
 time = {"start": start_val, "duration": dur_val}
 address = {"from": from_val, "to": to_val}
 date_format = '%Y-%m-%d %H:%M:%S.%f'
-
 
 def key_func(k):
     return k['sessionid']
@@ -28,8 +26,6 @@ def process_data():
             ["start", "sessionid", message_details[0]], details)}
         data.append(structure)
     return data
-
-
 
 def create_event():
     event = {"time": time,
