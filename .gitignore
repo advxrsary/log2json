@@ -1,5 +1,5 @@
 *.json
 *.log
 *.txt
-
+__pycache__
 !requirements.txt
