@@ -1,23 +1,22 @@
 import json
 from itertools import islice, groupby
+from jsoncomment import JsonComment
 from datetime import datetime
 
 time_val, session_val, start_val, dur_val, from_val, to_val, status_val, client_val, messageid_val = "", "", "", "", "", "", "", "", ""
 file_name = 'email.txt'
 json_file = 'output.json'
 file = open(file_name, "r")
-jfile = open(json_file, "w")
-data, newdata, message_list, sidlist = [], [], [], []
-new_message_list, eventdict = {}, {}
+jrfile = open(json_file, "r")
+jwfile = open(json_file, "w")
+data, sidlist = [], []
 time = {"start": start_val, "duration": dur_val}
 address = {"from": from_val, "to": to_val}
-message_outs = ["status", "client", "message-id"]
 date_format = '%Y-%m-%d %H:%M:%S.%f'
 
 
-def seq_pairs(li):
-    return zip(li, islice(li, 1, None))
-
+def key_func(k):
+    return k['sessionid']
 
 def process_data():
     for line in file.readlines():
@@ -32,6 +31,7 @@ def process_data():
     return data
 
 
+
 def create_event():
     event = {"time": time,
              "sessionid": session_val,
@@ -44,20 +44,17 @@ def create_event():
     eadrs = event['address']
     datalist = process_data()
     datalist = sorted(datalist, key=key_func)
-    divided_list = seq_pairs(datalist)
-
-    for list1, list2 in divided_list:
-        start = datetime.strptime(
-            list1['start'].replace("T", ' '), date_format)
-        end = datetime.strptime(list2['start'].replace("T", ' '), date_format)
-
+    eventdict = []
+    
     for key, value in groupby(datalist, key_func):
         sidlist.append(list(value))
+    
+    jwfile.write("[")
     for item in sidlist:
+        jwfile.write('\n')
         for i in item:
+            x =+ 1
             event['sessionid'] = i['sessionid']
-            etime['start'] = str(start)
-            etime['duration'] = str(end - start)
             if 'client' in i:
                 event['client'] = i['client']
             if 'status' in i:
@@ -68,23 +65,13 @@ def create_event():
                 eadrs['to'] = i['to']
             if 'message-id' in i:
                 event['messageid'] = i['message-id']
-        return(event)
-    # print(dict(item[0]))
-    # print(i)
-
-
-def key_func(k):
-    return k['sessionid']
-
-
-def write_json():
-    jfile.write('[\n')
-    for entry in process_data():
-        jfile.writelines(json.dumps(entry))
-        jfile.write(",\n")
-    jfile.write(']')
-    print(entry)
+        
+        jwfile.write(json.dumps(event, indent=4))
+        jwfile.write(",")
+    jwfile.write("]")
 
 
 if __name__ == "__main__":
     create_event()
+    
+    
