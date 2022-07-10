@@ -4,7 +4,7 @@ from datetime import datetime
 
 # Global variables declaration 
 time_val, session_val, start_val, dur_val, from_val, to_val, status_val, client_val, messageid_val = "", "", "", "", "", "", "", "", ""
-data, sidlist = [], []
+data, sidlist, datelist = [], [], []
 time = {"start": start_val, "duration": dur_val}
 address = {"from": from_val, "to": to_val}
 date_format = '%Y-%m-%d %H:%M:%S.%f'
@@ -25,6 +25,9 @@ except IndexError:
 def key_func(k):
     return k['sessionid']
 
+def seq_pairs(li):
+    return zip(li, islice(li, 1, None))
+
 # Data processor, takes each line of the log,
 # from each line takes values from each row
 # from the third row takes the part before sign
@@ -44,7 +47,7 @@ def process_data():
         data.append(structure)
     return data
 
-# The function to convert log to json
+# Converts log to json
 def create_event():
     event = {"time": time,
         	"sessionid": session_val,
@@ -57,7 +60,6 @@ def create_event():
     eadrs = event['address']
     datalist = process_data()
     datalist = sorted(datalist, key=key_func)
-    eventdict = []
 
     # Sorts and groups the datalist by session id
     for key, value in groupby(datalist, key_func):
@@ -65,11 +67,19 @@ def create_event():
 
     # Transforms processed data into serializable format
     # and writes it to .json file
+    
+    
     jwfile.write("[")
     for item in sidlist:
         jwfile.write('\n')
+        # divided_list = seq_pairs(item)
+        # for list1, list2 in divided_list:
+        #     start = datetime.strptime(list1['start'].replace("T", ' '), date_format)
+        #     end = datetime.strptime(
+        #         list2['start'].replace("T", ' '), date_format)
         for i in item:
             event['sessionid'] = i['sessionid']
+            etime['start'] = i['start']
             if 'client' in i:
                 event['client'] = i['client']
             if 'status' in i:
@@ -80,11 +90,9 @@ def create_event():
                 eadrs['to'] = i['to']
             if 'message-id' in i:
                 event['messageid'] = i['message-id']
-
-        jwfile.write(json.dumps(event, indent=4))
-        jwfile.write(",")
+        jwfile.write(f"{json.dumps(event, indent=4)},")
     jwfile.write("]")
-
+    
 # Main func
 if __name__ == "__main__":
     create_event()
