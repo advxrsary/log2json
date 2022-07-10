@@ -3,17 +3,20 @@ Converts a log of format |DATE|SESSIONID|MESSAGE| to json file:
 
 ## How to use
 
-1. Rename your log file to email.txt OR change the value of file_name variable
-2. Run python script with filenames as parameters
+1. Clone repository
+2. Install requirements 
+3. Run python script
 
 ```bash
 git clone https://github.com/advxrsary/Log2JSON.git
 
 cd Log2JSON
 
-python3 Log2JSON.py "log-file.log" "output-file.json"
+pip install -r 'requirements.txt'
+
+python3 Log2JSON.py 'log-file' 'output-file'
 ```
-3. At the moment you need to manually remove comma at the last line of output file
+4. At the moment you need to manually remove comma at the last line of output file
 ```bash
 },] ----> }]
 ```
