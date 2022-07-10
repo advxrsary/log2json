@@ -1,4 +1,4 @@
-# Log2JSON
+# log2json
 Converts a log of format |DATE|SESSIONID|MESSAGE| to json file:
 
 ## How to use
