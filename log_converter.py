@@ -33,38 +33,39 @@ def process_data():
 
 def create_event():
     event = {"time": time,
-             "sessionid": session_val,
-             "client": client_val,
-             "messageid": messageid_val,
-             "address": address,
-             "status": status_val}
+        	"sessionid": session_val,
+            "client": client_val,
+            "messageid": messageid_val,
+            "address": address,
+            "status": status_val}
 
     etime = event['time']
     eadrs = event['address']
     datalist = process_data()
     datalist = sorted(datalist, key=key_func)
     eventdict = []
-    
+
     for key, value in groupby(datalist, key_func):
         sidlist.append(list(value))
-    
+
     jwfile.write("[")
     for item in sidlist:
         jwfile.write('\n')
         for i in item:
             x =+ 1
             event['sessionid'] = i['sessionid']
-            if 'client' in i:
-                event['client'] = i['client']
-            if 'status' in i:
-                event['status'] = i['status']
-            if 'from' in i:
-                eadrs['from'] = i['from']
-            if 'to' in i:
-                eadrs['to'] = i['to']
-            if 'message-id' in i:
-                event['messageid'] = i['message-id']
-        
+            match i:
+                case 'client':
+                    event['client'] = i['client']
+                case 'status':
+                    event['status'] = i['status']
+                case 'from':
+                    eadrs['from'] = i['from']
+                case 'to':
+                    eadrs['to'] = i['to']
+                case 'message-id':
+                    event['messageid'] = i['message-id']
+
         jwfile.write(json.dumps(event, indent=4))
         jwfile.write(",")
     jwfile.write("]")
@@ -72,5 +73,5 @@ def create_event():
 
 if __name__ == "__main__":
     create_event()
-    
-    
+
+
