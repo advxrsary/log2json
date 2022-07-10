@@ -16,9 +16,9 @@ pip install -r 'requirements.txt'
 
 python3 Log2JSON.py 'log-file' 'output-file'
 ```
-4. At the moment you need to manually remove comma at the last line of output file
+4. Comma fix
 ```bash
-},] ----> }]
+python3 fix_comma [file-to-fix]
 ```
 
 ## Known Issues
