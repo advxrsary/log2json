@@ -2,6 +2,7 @@ import json, sys
 from itertools import islice, groupby
 from datetime import datetime
 
+# Variables declaration
 time_val, session_val, start_val, dur_val, from_val, to_val, status_val, client_val, messageid_val = "", "", "", "", "", "", "", "", ""
 file_name = sys.argv[1]
 json_file = sys.argv[2]
@@ -11,10 +12,18 @@ data, sidlist = [], []
 time = {"start": start_val, "duration": dur_val}
 address = {"from": from_val, "to": to_val}
 date_format = '%Y-%m-%d %H:%M:%S.%f'
+#################################################
 
+# Sort by sessionid key
 def key_func(k):
     return k['sessionid']
 
+# Data processor, takes each line of the log,
+# from each line takes values from each row
+# from the third row takes the part before sign
+# of equality as a key and after as a value for this key.
+# zips all values and creates list of dictionaries.
+# returns the list
 def process_data():
     for line in file.readlines():
         details = line.split("\t")
@@ -27,6 +36,7 @@ def process_data():
         data.append(structure)
     return data
 
+# The function to convert log to json
 def create_event():
     event = {"time": time,
         	"sessionid": session_val,
@@ -41,14 +51,16 @@ def create_event():
     datalist = sorted(datalist, key=key_func)
     eventdict = []
 
+    # Sorts and groups the datalist by session id
     for key, value in groupby(datalist, key_func):
         sidlist.append(list(value))
 
+    # Transforms processed data into serializable format
+    # and writes it to .json file
     jwfile.write("[")
     for item in sidlist:
         jwfile.write('\n')
         for i in item:
-            x =+ 1
             event['sessionid'] = i['sessionid']
             match i:
                 case 'client':
