@@ -3,7 +3,6 @@ from itertools import islice, groupby
 from datetime import datetime
 from termcolor import colored
 
-
 # Global variables declaration 
 time_val, session_val, start_val, dur_val, from_val, to_val, status_val, client_val, messageid_val = "", "", "", "", "", "", "", "", ""
 data, sidlist, datelist = [], [], []
@@ -75,19 +74,13 @@ def create_event():
     jwfile.write("[")
     for item in sidlist:
         jwfile.write('\n')
-        #     start = datetime.strptime(list1['start'].replace("T", ' '), date_format)
-        #     end = datetime.strptime(
-        #         list2['start'].replace("T", ' '), date_format)
         for i in item:
             event['sessionid'] = i['sessionid']
             etime['start'] = i['start']
-            start = datetime.strptime(
-                i['start'].replace("T", ' '), date_format)
             if 'client' in i:
                 event['client'] = i['client']
             if 'status' in i:
                 event['status'] = i['status']
-                etime['duration'] = i['start']
             if 'from' in i:
                 eadrs['from'] = i['from']
             if 'to' in i:
