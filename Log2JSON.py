@@ -2,7 +2,7 @@ import json, sys
 from itertools import islice, groupby
 from datetime import datetime
 
-# Variables declaration
+# Variables declaration ########################
 time_val, session_val, start_val, dur_val, from_val, to_val, status_val, client_val, messageid_val = "", "", "", "", "", "", "", "", ""
 file_name = sys.argv[1]
 json_file = sys.argv[2]
