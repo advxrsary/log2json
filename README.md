@@ -8,7 +8,7 @@ Converts a log to json file:
 3. At the moment you need to manually remove comma at the last line of the file
 
 ```bash
-git clone https://github.com/advxrsary/Log2JSON
+git clone "https://github.com/advxrsary/Log2JSON.git"
 cd Log2JSON
 python3 Log2JSON.py "log-file.log" "output-file.json"
 ```
