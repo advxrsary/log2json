@@ -60,7 +60,6 @@ def calculate_duration():
         duration = str(end - start)
         list1['duration'] = duration
         new_data.append(list1)
-    print(new_data)
     return(new_data)
 
 
