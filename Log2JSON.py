@@ -10,6 +10,18 @@ address = {"from": from_val, "to": to_val}
 date_format = '%Y-%m-%d %H:%M:%S.%f'
 #################################################
 
+# Exceptions for files input
+try:
+    file_name = sys.argv[1]
+except IndexError:
+    print("You did not specify log file")
+    sys.exit(1)
+try:
+    json_file = sys.argv[2]
+except IndexError:
+    print("You did not specify output file")
+    sys.exit(1)
+
 # Sort by sessionid key
 def key_func(k):
     return k['sessionid']
@@ -76,16 +88,6 @@ def create_event():
 
 # Main func
 if __name__ == "__main__":
-    try:
-        file_name = sys.argv[1]
-    except IndexError:
-        print("You did not specify log file")
-        sys.exit(1)
-    try:
-        json_file = sys.argv[2]
-    except IndexError:
-        print("You did not specify output file")
-        sys.exit(1)
     create_event()
     
 
