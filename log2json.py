@@ -44,12 +44,24 @@ def process_data():
         details = line.split("\t")
         details = [x.strip() for x in details]
         message_details = details[2].split("=")
-        sessid = details[1]
         details[2] = details[2].split("=")[1]
         structure = {key: value for key, value in zip(
             ["start", "sessionid", message_details[0]], details)}
         data.append(structure)
     return data
+
+def calculate_duration():
+    data_old = seq_pairs(process_data())
+    new_data = []
+    for list1, list2 in data_old:
+        start = datetime.strptime(list1['start'].replace("T", ' '), date_format)
+        end = datetime.strptime(list2['start'].replace("T", ' '), date_format)
+        duration = str(end - start)
+        list1['duration'] = duration
+        new_data.append(list1)
+    print(new_data)
+    return(new_data)
+
 
 # Converts log to json
 def create_event():
@@ -62,7 +74,7 @@ def create_event():
     jwfile = open(json_file, "w")
     etime = event['time']
     eadrs = event['address']
-    datalist = process_data()
+    datalist = calculate_duration()
     datalist = sorted(datalist, key=key_func)
     print(colored('[*]', 'yellow'), "Creating event...")
 
@@ -78,6 +90,7 @@ def create_event():
         for i in item:
             event['sessionid'] = i['sessionid']
             etime['start'] = i['start']
+            etime['duration'] = i['duration']
             if 'client' in i:
                 event['client'] = i['client']
             if 'status' in i:
@@ -96,8 +109,10 @@ if __name__ == "__main__":
     create_event()
     print(colored('[+]', 'green'), "Done!")
     print(colored('[+]', 'green'), f"Results: {json_file}")
-    print('[Note]', colored('to fix the comma run:'))
-    print('[Note]', colored('python3 fix_comma.py [result-file]'))
+    print(colored('[:]', 'grey'),
+          colored('To fix the comma run:', 'grey'))
+    print(colored('[:]', 'grey'),
+          colored(f'python3 fix_comma.py {json_file}', 'cyan'))
     
 
 
