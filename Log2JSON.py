@@ -2,18 +2,28 @@ import json, sys
 from itertools import islice, groupby
 from datetime import datetime
 
-# Variables declaration ########################
+# Variables declaration 
 time_val, session_val, start_val, dur_val, from_val, to_val, status_val, client_val, messageid_val = "", "", "", "", "", "", "", "", ""
-file_name = sys.argv[1]
-json_file = sys.argv[2]
-file = open(file_name, "r")
-jwfile = open(json_file, "w")
 data, sidlist = [], []
 time = {"start": start_val, "duration": dur_val}
 address = {"from": from_val, "to": to_val}
 date_format = '%Y-%m-%d %H:%M:%S.%f'
 #################################################
 
+# Exception for unspecified files
+def throw_unspecified_files():
+    try:
+        file_name = sys.argv[1]
+        file = open(file_name, "r")
+    except IndexError:
+        print("You did not specify log file")
+        sys.exit(1)
+    try:
+        json_file = sys.argv[2]
+        jwfile = open(json_file, "w")
+    except IndexError:
+        print("You did not specify output file")
+        sys.exit(1)
 # Sort by sessionid key
 def key_func(k):
     return k['sessionid']
@@ -78,7 +88,9 @@ def create_event():
         jwfile.write(",")
     jwfile.write("]")
 
+# Main func
 if __name__ == "__main__":
+    throw_unspecified_files()
     create_event()
 
 
