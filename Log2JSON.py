@@ -2,7 +2,7 @@ import json, sys
 from itertools import islice, groupby
 from datetime import datetime
 
-# Variables declaration 
+# Global variables declaration 
 time_val, session_val, start_val, dur_val, from_val, to_val, status_val, client_val, messageid_val = "", "", "", "", "", "", "", "", ""
 data, sidlist = [], []
 time = {"start": start_val, "duration": dur_val}
