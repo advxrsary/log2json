@@ -10,7 +10,7 @@ Converts a log to json file:
 ```bash
 git clone https://github.com/advxrsary/Log2JSON
 cd Log2JSON
-python3 log_converter.py "log-file.log" "outputfile.json"
+python3 Log2JSON.py "log-file.log" "outputfile.json"
 ```
 
 
