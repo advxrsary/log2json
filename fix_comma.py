@@ -1,12 +1,14 @@
 import sys
 from termcolor import colored
 
+# Chech if file is specified
 try:
     file_name = sys.argv[1]
 except IndexError:
     print(colored('\n[#]', 'red'), colored("Specify log file!"))
     sys.exit(1)
 
+# Read json, search for pattern and replace comma with \n
 def fix_comma(thefile):
     print(colored('[*]', 'yellow'), "Fixing comma...")
     read_file = open(thefile, "r")
@@ -15,8 +17,3 @@ def fix_comma(thefile):
     with open(thefile, "w") as file:
         file.writelines(x)
     print(colored('[+]', 'green'), "File fixed!")
-
-if __name__ == "__main__":
-    fix_comma(file_name)
-    
-
