@@ -50,6 +50,7 @@ def process_data():
         data.append(structure)
     return data
 
+# Calculates duration of a single event
 def calculate_duration():
     data_old = seq_pairs(process_data())
     new_data = []
