@@ -23,6 +23,7 @@ python3 fix_comma.py [file-to-fix]
 
 ## Known Issues
 + Comma at the end of .json
++ Json is sorted by SID, not by time
 
 ## Before
 ```ls
