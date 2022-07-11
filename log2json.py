@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+__author__ = 'Sevastian Zare (@advxrsary)'
+__date__ = '20220710'
+__version__ = '1.00'
+__description__ = """Processes data from a log file and converts it to 
+                  json serialized file. 
+                  """
+
 import json, sys
 from itertools import islice, groupby
 from datetime import datetime
