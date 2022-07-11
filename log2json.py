@@ -29,6 +29,7 @@ def process_data(file2process):
         data.append(structure)
     return data
 
+
 # Calculates duration of a single event
 def calc_duration(data2calc):
     date_format = '%Y-%m-%d %H:%M:%S.%f'
@@ -52,7 +53,6 @@ def sort_by_sid(data2sort):
 # Return sessionid val from dict
 def key_func(k):
     return k['sessionid']
-    
 
 # Transforms processed data into serializable format
 # and writes it to .json file
@@ -91,6 +91,7 @@ def write_file(file):
         jwfile.write(f"{json.dumps(event, indent=4)},")
     jwfile.write("]")
 
+
 # Self-execution
 if __name__ == "__main__":
     # Exception
@@ -116,6 +117,3 @@ if __name__ == "__main__":
           colored('To fix the comma run:', 'grey'))
     print(colored('[:]', 'grey'),
           colored(f'python3 fix_comma.py {json_file}', 'cyan'))
-    
-
-
