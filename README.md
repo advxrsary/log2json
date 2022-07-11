@@ -25,7 +25,7 @@ python3 fix_comma.py [file-to-fix]
 + Comma at the end of .json
 
 ## Before
-```log
+```ls
 2021-05-01T00:00:07.319452  A87246FB7082775D  status=rejected
 2021-05-01T00:00:12.187672  E0039D9A55225872  to=<sarah.brown@example.com>
 2021-05-01T00:00:12.387427  09E8698600CF8B32  from=<charles.brown@example.com>
