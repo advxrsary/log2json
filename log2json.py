@@ -95,6 +95,12 @@ def write_file(file):
 # Self-execution
 if __name__ == "__main__":
     # Exception
+    print('''  _             ____   _                 
+ | | ___   __ _|___ \ (_)___  ___  _ __  
+ | |/ _ \ / _` | __) || / __|/ _ \| '_ \ 
+ | | (_) | (_| |/ __/ | \__ \ (_) | | | |
+ |_|\___/ \__, |_____|/ |___/\___/|_| |_|
+          |___/     |__/     by advxrs4ry''')
     try:
         file_name = sys.argv[1]
     except IndexError:
@@ -111,9 +117,10 @@ if __name__ == "__main__":
     write_file(file_name)
 
     # Fancy output
+    
     print(colored('[+]', 'green'), "Done!")
     print(colored('[+]', 'green'), f"Results: {json_file}")
-    print(colored('[:]', 'grey'),
-          colored('To fix the comma run:', 'grey'))
-    print(colored('[:]', 'grey'),
+    print(colored('[:]', 'white'),
+          colored('To fix the comma run:', 'white'))
+    print(colored('[:]', 'white'),
           colored(f'python3 fix_comma.py {json_file}', 'cyan'))
