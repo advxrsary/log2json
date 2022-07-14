@@ -14,15 +14,10 @@ cd Log2JSON
 
 pip install -r 'requirements.txt'
 
-python3 Log2JSON.py 'log-file' 'output-file'
-```
-4. Comma fix
-```bash
-python3 fix_comma.py [file-to-fix]
+python Log2JSON.py [log-file] [output-file]
 ```
 
 ## Known Issues
-+ Comma at the end of .json
 + Json is sorted by SID, not by time
 
 ## Before
@@ -57,6 +52,3 @@ python3 fix_comma.py [file-to-fix]
   }
 ]
 ```
-
-
-..o0O Made by advxrs4ry O0o..

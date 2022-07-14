@@ -13,6 +13,9 @@ import json, sys
 from itertools import islice, groupby
 from datetime import datetime
 from termcolor import colored
+from traitlets import import_item
+from fix_comma import write_file as write_file_fix
+from fix_comma import fix_comma
 
 # Global variables declaration 
 time_val, session_val, start_val, dur_val, from_val, to_val, status_val, client_val, messageid_val = "", "", "", "", "", "", "", "", ""
@@ -126,12 +129,12 @@ if __name__ == "__main__":
 
     # Main func
     write_file(file_name)
-
-    # Fancy output
-    
+    x = fix_comma(json_file)
     print(colored('[+]', 'green'), "Done!")
+    write_file_fix(json_file, x)
     print(colored('[+]', 'green'), f"Results: {json_file}")
-    print(colored('[:]', 'white'),
-          colored('To fix the comma run:', 'white'))
-    print(colored('[:]', 'white'),
-          colored(f'python3 fix_comma.py {json_file}', 'cyan'))
+    
+    # print(colored('[:]', 'white'),
+    #       colored('To fix the comma run:', 'white'))
+    # print(colored('[:]', 'white'),
+    #       colored(f'python3 fix_comma.py {json_file}', 'cyan'))
