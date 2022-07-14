@@ -3,10 +3,8 @@ __author__ = 'Sevastian Zare (@advxrsary)'
 __date__ = '20220710'
 __license__ = 'MIT'
 __version__ = '1.01'
-__description__ = """
-                  Processes data from a log file and converts it to 
-                  json serialized file. 
-                  """
+__description__ = """ Processes data from a log file and converts it to 
+                      json serialized file. """
 
 
 import json, sys
