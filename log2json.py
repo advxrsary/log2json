@@ -2,18 +2,15 @@
 __author__ = 'Sevastian Zare (@advxrsary)'
 __date__ = '20220710'
 __license__ = 'MIT'
-__version__ = '1.00'
-__description__ = """
-                  Processes data from a log file and converts it to 
-                  json serialized file. 
-                  """
+__version__ = '1.01'
+__description__ = """ Processes data from a log file and converts it to 
+                      json serialized file. """
 
 
 import json, sys
 from itertools import islice, groupby
 from datetime import datetime
 from termcolor import colored
-from traitlets import import_item
 from fix_comma import write_file as write_file_fix
 from fix_comma import fix_comma
 
@@ -104,17 +101,18 @@ def write_file(file):
                 event['messageid'] = i['message-id']
         jwfile.write(f"{json.dumps(event, indent=4)},")
     jwfile.write("]")
+    print(colored('[*]', 'yellow'), "Writing to file...")
 
 
 # Self-execution
 if __name__ == "__main__":
     # Banner
-    print('''  _             ____   _                 
+    print(f'''  _             ____   _                 
  | | ___   __ _|___ \ (_)___  ___  _ __  
  | |/ _ \ / _` | __) || / __|/ _ \| '_ \ 
  | | (_) | (_| |/ __/ | \__ \ (_) | | | |
  |_|\___/ \__, |_____|/ |___/\___/|_| |_|
-          |___/     |__/     by advxrs4ry''')
+          |___/     |__/    {colored('by advxrsary','green')}''')
 
     # Exception
     try:
@@ -131,10 +129,10 @@ if __name__ == "__main__":
 
     # Main func
     write_file(file_name)
-    x = fix_comma(json_file)
-    print(colored('[+]', 'green'), "Done!")
-    write_file_fix(json_file, x)
     print(colored('[+]', 'green'), f"Results: {json_file}")
+    x = fix_comma(json_file)
+    write_file_fix(json_file, x)
+    
     
     # print(colored('[:]', 'white'),
     #       colored('To fix the comma run:', 'white'))
