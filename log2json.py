@@ -13,7 +13,6 @@ import json, sys
 from itertools import islice, groupby
 from datetime import datetime
 from termcolor import colored
-from traitlets import import_item
 from fix_comma import write_file as write_file_fix
 from fix_comma import fix_comma
 
