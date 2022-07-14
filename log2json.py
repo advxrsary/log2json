@@ -108,13 +108,15 @@ def write_file(file):
 
 # Self-execution
 if __name__ == "__main__":
-    # Exception
+    # Banner
     print('''  _             ____   _                 
  | | ___   __ _|___ \ (_)___  ___  _ __  
  | |/ _ \ / _` | __) || / __|/ _ \| '_ \ 
  | | (_) | (_| |/ __/ | \__ \ (_) | | | |
  |_|\___/ \__, |_____|/ |___/\___/|_| |_|
           |___/     |__/     by advxrs4ry''')
+
+    # Exception
     try:
         file_name = sys.argv[1]
     except IndexError:
