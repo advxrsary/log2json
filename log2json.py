@@ -116,6 +116,14 @@ if __name__ == "__main__":
     # Exception
     try:
         file_name = sys.argv[1]
+        with open(file_name) as f:
+            content = f.read()
+    except IOError as err:
+        if err.errno == ENOENT:
+            print(colored('\n[#]', 'red'), f"There is no {file_name} file")
+            sys.exit(1)
+    try:
+        file_name = sys.argv[1]
     except IndexError:
         print(colored('\n[#]', 'red'), "Specify log file!")
         print(colored('[#]', 'red'), "Specify output file!")
@@ -125,13 +133,6 @@ if __name__ == "__main__":
     except IndexError:
         print(colored('\n[#]', 'red'), "Specify output file!")
         sys.exit(1)
-    try:
-        with open(file_name) as f:
-            content = f.read()
-    except IOError as err:
-        if err.errno == ENOENT:
-            print(colored('\n[#]', 'red'), f"There is no {file_name} file")
-            sys.exit(1)
 
     # Banner
     print(f'''  _             ____   _                 
