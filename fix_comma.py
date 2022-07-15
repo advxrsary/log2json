@@ -8,12 +8,9 @@ __manual__ = """To fix the file, run: python3 fix_comma.py [file-to-fix]"""
 
 
 import sys
-from turtle import color
 from termcolor import colored
 
 # Read json, search for pattern and replace comma with \n
-
-
 def fix_comma(thefile):
     print(colored('\n[‡]', 'blue'), "Fixing comma...")
     raw_out = []
