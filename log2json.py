@@ -24,15 +24,11 @@ address = {"from": from_val, "to": to_val}
 
 # Divide one list into two, the second is ahead of the first
 # by one step
-
-
 def seq_pairs(li):
     return zip(li, islice(li, 1, None))
 
 # Processes each row; from the third row takes <key>=<value>
 # returns a datalist
-
-
 def process_data(file2process):
     print(colored('\n[*]', 'yellow'), "Processing data...")
     file = open(file2process, "r")
@@ -68,9 +64,9 @@ def sort_by_sid(data2sort):
     for key, value in groupby(sorted_data, key_func):
         sidlist.append(list(value))
     return sidlist
+
+
 # Return sessionid val from dict
-
-
 def key_func(k):
     return k['sessionid']
 
