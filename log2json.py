@@ -14,6 +14,7 @@ from datetime import datetime
 from termcolor import colored
 from fix_comma import write_file as write_file_fix
 from fix_comma import fix_comma
+from errno import ENOENT
 
 # Global variables declaration
 time_val, session_val, start_val, dur_val, from_val, to_val, status_val, client_val, messageid_val = "", "", "", "", "", "", "", "", ""
@@ -116,14 +117,6 @@ def write_file(file):
 
 # Self-execution
 if __name__ == "__main__":
-    # Banner
-    print(f'''  _             ____   _                 
- | | ___   __ _|___ \ (_)___  ___  _ __  
- | |/ _ \ / _` | __) || / __|/ _ \| '_ \ 
- | | (_) | (_| |/ __/ | \__ \ (_) | | | |
- |_|\___/ \__, |_____|/ |___/\___/|_| |_|
-          |___/     |__/    {colored('by advxrsary','green')}''')
-
     # Exception
     try:
         file_name = sys.argv[1]
@@ -136,14 +129,23 @@ if __name__ == "__main__":
     except IndexError:
         print(colored('\n[#]', 'red'), "Specify output file!")
         sys.exit(1)
+    try:
+        with open(file_name) as f:
+            content = f.read()
+    except IOError as err:
+        if err.errno == ENOENT:
+            print(colored('\n[#]', 'red'), f"There is no {file_name} file")
+            sys.exit(1)
 
+    # Banner
+    print(f'''  _             ____   _                 
+ | | ___   __ _|___ \ (_)___  ___  _ __  
+ | |/ _ \ / _` | __) || / __|/ _ \| '_ \ 
+ | | (_) | (_| |/ __/ | \__ \ (_) | | | |
+ |_|\___/ \__, |_____|/ |___/\___/|_| |_|
+          |___/     |__/    {colored('by advxrsary','green')}''')
     # Main func
     write_file(file_name)
     print(colored('[+]', 'green'), f"Results: {json_file}")
     x = fix_comma(json_file)
     write_file_fix(json_file, x)
-
-    # print(colored('[:]', 'white'),
-    #       colored('To fix the comma run:', 'white'))
-    # print(colored('[:]', 'white'),
-    #       colored(f'python3 fix_comma.py {json_file}', 'cyan'))
