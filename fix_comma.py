@@ -12,6 +12,8 @@ from turtle import color
 from termcolor import colored
 
 # Read json, search for pattern and replace comma with \n
+
+
 def fix_comma(thefile):
     print(colored('\n[‡]', 'blue'), "Fixing comma...")
     raw_out = []

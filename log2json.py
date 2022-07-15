@@ -117,7 +117,6 @@ def write_file(file):
 
 # Self-execution
 if __name__ == "__main__":
-
     # Exception
     try:
         file_name = sys.argv[1]
