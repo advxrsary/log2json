@@ -34,6 +34,11 @@ def process_data(file2process):
     file = open(file2process, "r")
     for line in file.readlines():
         details = line.split("\t")
+        try:
+            gotdata = details[2].split("=")
+        except IndexError:
+            print(colored('[#]', 'red'), "No data found in file")
+            sys.exit(1)
         details = [x.strip() for x in details]
         message_details = details[2].split("=")
         details[2] = details[2].split("=")[1]
@@ -133,7 +138,7 @@ if __name__ == "__main__":
     except IndexError:
         print(colored('\n[#]', 'red'), "Specify output file!")
         sys.exit(1)
-
+    
     # Banner
     print(f'''  _             ____   _                 
  | | ___   __ _|___ \ (_)___  ___  _ __  
