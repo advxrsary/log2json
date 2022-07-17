@@ -13,7 +13,7 @@ from itertools import islice, groupby
 from datetime import datetime
 from termcolor import colored
 from fix_comma import write_file as write_file_fix
-from fix_comma import fix_comma, fix_braces
+from fix_comma import indent_fix
 from errno import ENOENT
 
 # Global variables declaration
@@ -77,8 +77,6 @@ def key_func(k):
 
 # Transforms processed data into serializable format
 # and writes it to .json file
-
-
 def write_file(file):
     processed_data = process_data(file)
     sorted_data = sort_by_sid(calc_duration(processed_data))
@@ -111,7 +109,7 @@ def write_file(file):
                 eadrs['to'] = i['to']
             if 'message-id' in i:
                 event['messageid'] = i['message-id']
-        jwfile.write(f"{json.dumps(event, indent=8)},")
+        jwfile.write(f"{json.dumps(event)},")
     jwfile.write("]")
     print(colored('[*]', 'yellow'), "Writing to file...")
 
@@ -149,6 +147,5 @@ if __name__ == "__main__":
     # Main func
     write_file(file_name)
     print(colored('[+]', 'green'), f"Results: {json_file}")
-    write_file_fix(json_file, fix_comma(json_file))
-    write_file_fix(json_file, fix_braces(json_file))
+    write_file_fix(json_file, indent_fix(json_file))
     print(colored('[‡]', 'blue'), f"File {json_file} fixed!")

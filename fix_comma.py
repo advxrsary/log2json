@@ -7,7 +7,7 @@ __description__ = """ Fixes comma in json file """
 __manual__ = """To fix the file, run: python3 fix_comma.py [file-to-fix]"""
 
 
-import sys
+import sys, json
 from termcolor import colored
 
 # Read json, search for pattern and replace comma with \n
@@ -18,12 +18,12 @@ def fix_comma(thefile):
     x = text.replace('},]', '\t}\n]')
     return x
 
-def fix_braces(thefile):
-    print(colored('[‡]', 'blue'), "Fixing indents...")
-    read_file = open(thefile, "r")
-    text = read_file.read()
-    x = text.replace('},\n\t{', '\t},\n\t{')
-    return x
+# Use json parser to read the file and then write it back prettified
+def indent_fix(thefile):
+    newdict = json.loads(fix_comma(thefile))
+    print(colored('[‡]', 'blue'), "Fixing indent...")
+    newdict = json.dumps(newdict, indent=4)
+    return newdict
 
 def write_file(thefile, text):
     with open(thefile, "w") as file:
@@ -39,6 +39,5 @@ if __name__ == "__main__":
         sys.exit(1)
 
     # Self-execute
-    x = fix_comma(file_name)
-    write_file(file_name, x)
+    write_file(file_name, indent_fix(file_name))
     print(colored('[‡]', 'blue'), f"File {file_name} fixed!")
