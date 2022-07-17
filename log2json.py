@@ -33,11 +33,11 @@ def process_data(file2process):
     print(colored('\n[*]', 'yellow'), "Processing data...")
     file = open(file2process, "r")
     for line in file.readlines():
-        details = line.split("\t")
+        details = line.split(" ")
         try:
-            gotdata = details[2].split("=")
+            details[1] != ""
         except IndexError:
-            print(colored('[#]', 'red'), "No data found in file")
+            print(colored('[#]', 'red'), "No data found in file or data is in wrong format.")
             sys.exit(1)
         details = [x.strip() for x in details]
         message_details = details[2].split("=")
