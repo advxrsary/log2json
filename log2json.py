@@ -35,7 +35,7 @@ def process_data(file2process):
     for line in file.readlines():
         details = line.split(" ")
         try:
-            details[2] = details[2].split("=")
+            details[1] != None
         except IndexError:
             print(colored('[#]', 'red'), "No data found in file or data is in wrong format.")
             sys.exit(1)
