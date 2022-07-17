@@ -110,7 +110,8 @@ def write_file(file):
             if 'message-id' in i:
                 event['messageid'] = i['message-id']
         sorted_out.append(json.loads(json.dumps(event, indent=4)))
-        sorted_out.sort(key=lambda x: x['time']['start'])
+    print(colored('[*]', 'yellow'), "Sorting data by start time...")
+    sorted_out.sort(key=lambda x: x['time']['start'])
     for item in sorted_out:
         jwfile.write(f"{json.dumps(item, indent=4)},\n")
     jwfile.write("]")
@@ -149,6 +150,6 @@ if __name__ == "__main__":
           |___/     |__/    {colored('by advxrsary','green')}''')
     # Main func
     write_file(file_name)
-    print(colored('[+]', 'green'), f"Results: {json_file}")
     write_file_fix(json_file, indent_fix(json_file))
     print(colored('[‡]', 'blue'), f"File {json_file} fixed!")
+    print(colored('\n[+]', 'green'), f"Results: {json_file}")
