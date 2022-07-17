@@ -18,11 +18,6 @@ pip install -r 'requirements.txt'
 python log2json.py [log-file] [output-file]
 ```
 
-## Known Issues
-
-```
-Output is sorted by SID, not by time
-```
 
 ## Example
 ### Input
