@@ -15,7 +15,7 @@ def fix_comma(thefile):
     print(colored('\n[‡]', 'blue'), "Fixing comma...")
     read_file = open(thefile, "r")
     text = read_file.read()
-    x = text.replace('},]', '\t}\n]')
+    x = text.replace('},\n]', '\t}\n]')
     return x
 
 # Use json parser to read the file and then write it back prettified
