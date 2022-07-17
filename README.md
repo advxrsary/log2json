@@ -18,7 +18,6 @@ pip install -r 'requirements.txt'
 python log2json.py [log-file] [output-file]
 ```
 
-
 ## Example
 ### Input
 ```log
@@ -42,11 +41,14 @@ python log2json.py logs/log.txt logs/log.json
 
 [*] Processing data...
 [*] Creating event...
+[*] Sorting data by start time...
 [*] Writing to file...
-[+] Results: log.json
 
 [‡] Fixing comma...
-[‡] File log.json fixed!
+[‡] Fixing indent...
+[‡] File out.json fixed!
+
+[+] Results: out.json
 ```
 ### Output
 
