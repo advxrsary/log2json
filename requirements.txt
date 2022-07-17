@@ -1,2 +1,2 @@
 colored==1.4.3
-termcolor==1.1.0
+termcolor @ git@github.com:hfeeki/termcolor.git
