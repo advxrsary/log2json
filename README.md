@@ -18,7 +18,6 @@ pip install -r 'requirements.txt'
 python log2json.py [log-file] [output-file]
 ```
 
-
 ## Example
 ### Input
 ```log
