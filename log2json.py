@@ -18,10 +18,10 @@ from errno import ENOENT
 
 # Global variables declaration
 time_val, session_val, start_val, dur_val, from_val, to_val, status_val, client_val, messageid_val = "", "", "", "", "", "", "", "", ""
-data, sidlist, datelist = [], [], []
+data, sidlist, datelist, sorted_out = [], [], [], []
 time = {"start": start_val, "duration": dur_val}
 address = {"from": from_val, "to": to_val}
-sorted_out = []
+
 # Divide one list into two, the second is ahead of the first
 # by one step
 def seq_pairs(li):
@@ -33,11 +33,11 @@ def process_data(file2process):
     print(colored('\n[*]', 'yellow'), "Processing data...")
     file = open(file2process, "r")
     for line in file.readlines():
-        details = line.split("\t")
+        details = line.split(" ")
         try:
-            gotdata = details[2].split("=")
+            details[2] = details[2].split("=")
         except IndexError:
-            print(colored('[#]', 'red'), "No data found in file")
+            print(colored('[#]', 'red'), "No data found in file or data is in wrong format.")
             sys.exit(1)
         details = [x.strip() for x in details]
         message_details = details[2].split("=")
