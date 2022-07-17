@@ -21,7 +21,7 @@ time_val, session_val, start_val, dur_val, from_val, to_val, status_val, client_
 data, sidlist, datelist = [], [], []
 time = {"start": start_val, "duration": dur_val}
 address = {"from": from_val, "to": to_val}
-
+sorted_out = []
 # Divide one list into two, the second is ahead of the first
 # by one step
 def seq_pairs(li):
@@ -94,7 +94,7 @@ def write_file(file):
     jwfile = open(json_file, "w")
     jwfile.write("[")
     for item in sorted_data:
-        jwfile.write('\n\t')
+        jwfile.write('\t')
         for i in item:
             event['sessionid'] = i['sessionid']
             etime['start'] = i['start']
@@ -109,7 +109,10 @@ def write_file(file):
                 eadrs['to'] = i['to']
             if 'message-id' in i:
                 event['messageid'] = i['message-id']
-        jwfile.write(f"{json.dumps(event)},")
+        sorted_out.append(json.loads(json.dumps(event, indent=4)))
+        sorted_out.sort(key=lambda x: x['time']['start'])
+    for item in sorted_out:
+        jwfile.write(f"{json.dumps(item, indent=4)},\n")
     jwfile.write("]")
     print(colored('[*]', 'yellow'), "Writing to file...")
 
