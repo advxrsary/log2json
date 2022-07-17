@@ -13,7 +13,7 @@ from itertools import islice, groupby
 from datetime import datetime
 from termcolor import colored
 from fix_comma import write_file as write_file_fix
-from fix_comma import fix_comma
+from fix_comma import fix_comma, fix_braces
 from errno import ENOENT
 
 # Global variables declaration
@@ -96,7 +96,7 @@ def write_file(file):
     jwfile = open(json_file, "w")
     jwfile.write("[")
     for item in sorted_data:
-        jwfile.write('\n')
+        jwfile.write('\n\t')
         for i in item:
             event['sessionid'] = i['sessionid']
             etime['start'] = i['start']
@@ -111,7 +111,7 @@ def write_file(file):
                 eadrs['to'] = i['to']
             if 'message-id' in i:
                 event['messageid'] = i['message-id']
-        jwfile.write(f"{json.dumps(event, indent=4)},")
+        jwfile.write(f"{json.dumps(event, indent=8)},")
     jwfile.write("]")
     print(colored('[*]', 'yellow'), "Writing to file...")
 
@@ -149,5 +149,6 @@ if __name__ == "__main__":
     # Main func
     write_file(file_name)
     print(colored('[+]', 'green'), f"Results: {json_file}")
-    x = fix_comma(json_file)
-    write_file_fix(json_file, x)
+    write_file_fix(json_file, fix_comma(json_file))
+    write_file_fix(json_file, fix_braces(json_file))
+    print(colored('[‡]', 'blue'), f"File {json_file} fixed!")
