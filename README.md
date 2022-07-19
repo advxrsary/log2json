@@ -17,7 +17,8 @@ pip install -r 'requirements.txt'
 
 python log2json.py [log-file] [output-file]
 ```
-
+### Known issues
+Duration is calculated from the first timestamp to the next one of the same event.
 ## Example
 ### Input
 ```log
