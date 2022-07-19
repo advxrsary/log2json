@@ -33,9 +33,9 @@ def process_data(file2process):
     print(colored('\n[*]', 'yellow'), "Processing data...")
     file = open(file2process, "r")
     for line in file.readlines():
-        details = line.split("\t")
+        details = line.split('\t')
         if len(details) == 1:
-            details = line.split(" ")
+            details = line.split(' ')
         try:
             details[2] != ""
         except IndexError:
@@ -47,6 +47,7 @@ def process_data(file2process):
         structure = {key: value for key, value in zip(
             ["start", "sessionid", message_details[0]], details)}
         data.append(structure)
+    file.close()
     return data
 
 
@@ -118,7 +119,7 @@ def write_file(file):
         jwfile.write(f"{json.dumps(item, indent=4)},\n")
     jwfile.write("]")
     print(colored('[*]', 'yellow'), "Writing to file...")
-
+    jwfile.close()    
 
 # Self-execution
 if __name__ == "__main__":
