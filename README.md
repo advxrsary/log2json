@@ -36,7 +36,7 @@ python log2json.py [log-file] [output-file]
 2021-05-01T00:00:25.852578 80AE5FEE2A046EF8 message-id=<d41fb35b-e516-4559-8cc2-583fbaa2051b@PKCKUO0ORJ>
 ```
  ### Shell
-```sh
+```
 python log2json.py logs/log.txt logs/log.json
 
 [*] Processing data...
@@ -46,9 +46,9 @@ python log2json.py logs/log.txt logs/log.json
 
 [‡] Fixing comma...
 [‡] Fixing indent...
-[‡] File out.json fixed!
+[‡] File log.json fixed!
 
-[+] Results: out.json
+[+] Results: log.json
 ```
 ### Output
 
