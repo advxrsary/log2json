@@ -28,12 +28,14 @@ def seq_pairs(li):
     return zip(li, islice(li, 1, None))
 
 # Processes each row; from the third row takes <key>=<value>
-# returns a datalist
+# returns a datalist. Lines should be separated by tabs or spaces.
 def process_data(file2process):
     print(colored('\n[*]', 'yellow'), "Processing data...")
     file = open(file2process, "r")
     for line in file.readlines():
         details = line.split("\t")
+        if len(details) == 1:
+            details = line.split(" ")
         try:
             details[2] != ""
         except IndexError:
